@@ -56,7 +56,7 @@ function DashBoad() {
 
   useEffect(() => {
     dispatch(fetchPageData(page));
-  }, [page, dispatch]);
+  }, [page, dispatch, error]);
   const handleScroll = () => {
     if (window.scrollY < 150 || isLoading === true) {
       return;

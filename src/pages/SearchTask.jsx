@@ -24,7 +24,7 @@ function SearchTask() {
   );
   const { keyName, keyStartDate, keyEndDate, keyTaskType } = searchKey;
   const options = [
-    {value: undefined, label: ""},
+    { value: undefined, label: "" },
     { value: "1", label: "Inprogress" },
     { value: "3", label: "Exprided" },
     { value: "2", label: "Done" },
@@ -102,11 +102,16 @@ function SearchTask() {
         <h2>Results</h2>
         {searchResult &&
           searchResult.map((task) => {
+            let styles = {
+              backgroundColor:
+                Number(task.type) === 1
+                  ? "rgba(179, 141, 229, 0.26)"
+                  : Number(task.type) === 2
+                  ? "rgb(162, 231, 162)"
+                  : "rgb(207, 170, 166)",
+            };
             return (
-              <li
-                style={{ backgroundColor: "rgb(179 141 229 / 26%)" }}
-                key={task.id}
-              >
+              <li style={styles} key={task.id}>
                 {task.name}
                 <span>
                   <Link>
