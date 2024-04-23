@@ -81,8 +81,8 @@ function DetailTaskPage() {
         value={endDate}
         disabled={type && Number(type) === 2}
       />
-      <button
-        disabled={type && Number(type) === 2}
+      {type && Number(type) !== 2 && (
+        <button
         className={clsx(style.button_input)}
         onClick={() =>
           dispatch(
@@ -98,6 +98,8 @@ function DetailTaskPage() {
       >
         <AiFillPlusSquare />
       </button>
+      )}
+
     </div>
   );
 }

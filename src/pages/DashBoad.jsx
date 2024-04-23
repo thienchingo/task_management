@@ -122,6 +122,13 @@ function DashBoad() {
               return (
                 <li style={{ backgroundColor: "#a2e7a2" }} key={task.id}>
                   {task.name}
+                  <span>
+                    <Link to={`/details/${task.id}`}>
+                      <button>
+                        <HiPencilAlt />
+                      </button>
+                    </Link>
+                  </span>
                 </li>
               );
             })}
