@@ -42,9 +42,10 @@ function DashBoad() {
   useEffect(() => {
     const timerId = setTimeout(() => {
       if (isLoading) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
         dispatch(setIsLoading(false));
       }
-    }, 3000);
+    }, 500);
     return () => clearTimeout(timerId);
   }, [pageData]);
   useEffect(() => {
@@ -58,9 +59,15 @@ function DashBoad() {
     dispatch(fetchPageData(page));
   }, [page, dispatch, error]);
   const handleScroll = () => {
-    if (window.scrollY < 150 || isLoading === true) {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight ||
+      isLoading
+    ) {
       return;
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    dispatch(setIsLoading(true));
     dispatch(fetchPageDataInfinite());
   };
   useEffect(() => {
@@ -76,7 +83,8 @@ function DashBoad() {
           {error.successed}
         </span>
         <h2>Inprogress task</h2>
-        {pageData &&
+        {!isLoading &&
+          pageData &&
           pageData.map((task) => {
             return (
               <li

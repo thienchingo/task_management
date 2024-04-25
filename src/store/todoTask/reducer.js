@@ -1,5 +1,6 @@
 import { isEmpty } from "lodash";
 import compare, { compareDate, compareDateExprided } from "../../helps/utils";
+import { v4 as uuidv4 } from "uuid";
 import {
   ADD_TASK,
   AUTO_CHECK_EXPRIDED_TASK,
@@ -42,7 +43,345 @@ const initialState = {
   isLoading: false,
   pageId: 1,
 };
-const TodoReducer = (state = initialState, action) => {
+const taskInits = [
+  {
+    name: "Task01",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task02",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task03",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task04",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task05",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task06",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task07",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task08",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task09",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task10",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task11",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task12",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task13",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task14",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task15",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task16",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task17",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task18",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task19",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task20",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task21",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task22",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task23",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task24",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task25",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task26",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task27",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task28",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task29",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task30",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task31",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task32",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task33",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task34",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task35",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task36",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task37",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task38",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task39",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task40",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task41",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+  {
+    name: "Task42",
+    description: "",
+    startDate: "2024-04-25",
+    endDate: "2024-04-26",
+    id: uuidv4(),
+    type: 1,
+  },
+];
+const TodoReducer = (state = { ...initialState, tasks: taskInits }, action) => {
   switch (action.type) {
     case INPUT_TASK_NAME:
       state = {
@@ -233,7 +572,7 @@ const TodoReducer = (state = initialState, action) => {
         state = {
           ...state,
           tasks: currentTasks.sort(compare),
-          expridedTask: [...listExpridedTask],
+          expridedTask: [...state.expridedTask, ...listExpridedTask],
         };
       }
       localStorage.setItem("DATA", JSON.stringify({ ...state, error: {} }));
@@ -338,7 +677,7 @@ const TodoReducer = (state = initialState, action) => {
       let pageId =
         state.pageId + 1 <= Math.ceil(state.tasks.length / 8)
           ? state.pageId + 1
-          : state.pageId;
+          : 1;
       if (Number(pageId) === 1) {
         state.tasks.forEach((ts, index) => {
           if (index < 8) pageDataInfinites.push(ts);
@@ -359,7 +698,7 @@ const TodoReducer = (state = initialState, action) => {
           pageId:
             state.pageId + 1 <= Math.ceil(state.tasks.length / 8)
               ? state.pageId + 1
-              : state.pageId,
+              : 1,
         };
       }
       localStorage.setItem("DATA", JSON.stringify({ ...state, error: {} }));

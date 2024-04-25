@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import style from "../App.module.scss";
+import { useEffect } from "react";
 import {
   deleteTask,
   finishedTask,
@@ -23,6 +24,12 @@ function SearchTask() {
     (state) => state.TodoReducer
   );
   const { keyName, keyStartDate, keyEndDate, keyTaskType } = searchKey;
+  useEffect(() => {
+    dispatch(inputSearchName(""));
+    dispatch(inputSearchStartDate(""));
+    dispatch(inputSearchEndDate(""));
+    dispatch(inputSearchTaskType(undefined));
+  }, [dispatch]);
   const options = [
     { value: undefined, label: "" },
     { value: "1", label: "Inprogress" },
